@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>결 Gyeol · 손바느질 가죽 소품</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F4EF; --ink:#17211C; --muted:#5E6B63; --line:#CBD1C8;
+  --mat:#2F4A3E; --mat-line:rgba(255,255,255,.08); --brass:#C9A24D;
+  --serif:'Gowun Batang',serif; --sans:'IBM Plex Sans KR',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--sans)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 48px}
+.logo{font:700 30px var(--serif);text-decoration:none;color:var(--ink)}
+nav a{margin-left:28px;color:var(--muted);text-decoration:none;font-size:15px}
+nav a:hover{color:var(--ink)}
+.intro{padding:24px 48px 32px;max-width:900px}
+h1{font:700 clamp(28px,3.6vw,46px)/1.3 var(--serif);letter-spacing:-.01em}
+.intro p{margin-top:14px;color:var(--muted);max-width:52ch}
+.lab{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(340px,.75fr);gap:32px;padding:0 48px 72px;align-items:start}
+.stage{position:sticky;top:20px;aspect-ratio:13/10;border-radius:6px;overflow:hidden;
+  background-color:var(--mat);
+  background-image:linear-gradient(var(--mat-line) 1px,transparent 1px),linear-gradient(90deg,var(--mat-line) 1px,transparent 1px),
+  linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:130px 130px,130px 130px,26px 26px,26px 26px;box-shadow:inset 0 0 0 8px #263D33}
+.piece{position:absolute;inset:0;transition:transform .18s ease-out;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.piece svg{width:100%;height:100%;display:block}
+.cap{position:absolute;left:22px;bottom:16px;color:rgba(255,255,255,.78);font-size:14px}
+.cap b{font-weight:600;color:#fff}
+.panel{display:grid;gap:26px}
+fieldset{border:0;padding:0}
+legend,.fl{font-weight:600;font-size:15px;margin-bottom:10px;display:block;padding:0}
+.fl small,legend small{font-weight:400;color:var(--muted);margin-left:6px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{padding:9px 16px;border:1.5px solid var(--line);background:#fff;border-radius:999px;cursor:pointer;transition:background .15s,border-color .15s}
+.seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.sws{display:flex;gap:12px;flex-wrap:wrap}
+.sw{width:44px;height:44px;border-radius:50%;border:0;background:var(--c);cursor:pointer;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);transition:transform .15s}
+.sw:hover{transform:scale(1.08)}
+.sw[aria-pressed=true]{box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--ink)}
+input[type=text]{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:8px;background:#fff}
+.price{display:flex;justify-content:space-between;align-items:baseline;border-top:1.5px dashed var(--ink);padding-top:18px}
+.price strong{font:700 28px var(--serif)}
+.add{width:100%;padding:15px;border:0;border-radius:8px;background:var(--ink);color:#fff;font-weight:600;cursor:pointer;transition:background .15s}
+.add:hover{background:#2C3F35}
+.basket{border:1.5px dashed var(--line);border-radius:8px;padding:16px}
+.basket h2{font:700 18px var(--serif);margin-bottom:8px}
+.basket .empty{color:var(--muted);font-size:14px}
+.basket li{list-style:none;display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.basket li button{border:0;background:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-size:13px}
+.tot{display:flex;justify-content:space-between;margin-top:12px;font-weight:600}
+.copy{margin-top:12px;width:100%;padding:12px;border:1.5px solid var(--ink);border-radius:8px;background:none;cursor:pointer;font-weight:600}
+.copy:hover{background:var(--ink);color:#fff}
+.process{background:#fff;padding:72px 48px;border-top:1px solid var(--line)}
+.process h2{font:700 30px var(--serif);margin-bottom:36px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;list-style:none;padding:0;counter-reset:s}
+.steps li{counter-increment:s;border-top:3px solid var(--ink);padding-top:16px}
+.steps li::before{content:counter(s);font:700 22px var(--serif);display:block;margin-bottom:6px}
+.steps b{display:block;margin-bottom:4px}
+.steps span{color:var(--muted);font-size:15px}
+footer{padding:32px 48px;color:var(--muted);font-size:14px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,24px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:8px;opacity:0;pointer-events:none;transition:all .25s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:900px){
+  header,.intro,.lab,.process,footer{padding-left:20px;padding-right:20px}
+  .lab{grid-template-columns:1fr}.stage{position:relative;top:0}
+  .steps{grid-template-columns:1fr 1fr}nav{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#">결</a>
+  <nav><a href="#lab">직접 꾸며보기</a><a href="#process">만드는 과정</a></nav>
+</header>
+
+<section class="intro">
+  <h1>손으로 꿰맨 가죽 소품, 완성된 모습을 먼저 만나보세요</h1>
+  <p>가죽 색, 바느질 실, 각인 문구를 고르면 바로 아래 작업대 위에 한 점이 만들어집니다.</p>
+</section>
+
+<main class="lab" id="lab">
+  <div class="stage" id="stage">
+    <div class="piece" id="piece"></div>
+    <div class="cap" id="cap"></div>
+  </div>
+
+  <div class="panel">
+    <fieldset><legend>상품</legend><div class="seg" id="kinds"></div></fieldset>
+    <fieldset><legend>가죽 색<small id="lname"></small></legend><div class="sws" id="leathers"></div></fieldset>
+    <fieldset><legend>바느질 실<small id="tname"></small></legend><div class="sws" id="threads"></div></fieldset>
+    <div>
+      <label class="fl" for="txt">각인 문구<small>최대 12자, 3,000원 추가</small></label>
+      <input type="text" id="txt" maxlength="12" value="결" placeholder="비워두면 각인 없이 만들어요">
+    </div>
+    <fieldset><legend>각인 서체</legend><div class="seg" id="fonts"></div></fieldset>
+    <div class="price"><span>이 구성의 가격</span><strong id="price"></strong></div>
+    <button class="add" id="add">이 구성 담기</button>
+    <div class="basket">
+      <h2>담은 구성</h2>
+      <p class="empty" id="empty">아직 담은 구성이 없어요. 마음에 드는 조합을 담아보세요.</p>
+      <ul id="list" style="padding:0"></ul>
+      <div class="tot" id="tot" hidden><span>합계</span><span id="sum"></span></div>
+      <button class="copy" id="copy" hidden>주문 내용 복사하기</button>
+    </div>
+  </div>
+</main>
+
+<section class="process" id="process">
+  <h2>한 점이 완성되기까지</h2>
+  <ol class="steps">
+    <li><b>가죽 고르기</b><span>결이 곱고 두께가 고른 부분만 골라 사용합니다.</span></li>
+    <li><b>재단</b><span>본을 대고 한 장씩 칼로 잘라냅니다.</span></li>
+    <li><b>손바느질</b><span>구멍을 내고 실 두 가닥으로 한 땀씩 꿰맵니다.</span></li>
+    <li><b>각인과 마감</b><span>문구를 눌러 새기고 가장자리를 매끈하게 다듬습니다.</span></li>
+  </ol>
+</section>
+<footer>© 2026 결 Gyeol · 연습용으로 만든 가상 브랜드 사이트입니다.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const LEATHER=[['oat','오트','#E0D2B6'],['camel','카멜','#B87238'],['choco','초콜릿','#4A2D20'],['olive','올리브','#5A6135'],['wine','와인','#6B2132'],['black','블랙','#1F1E1D']];
+const THREAD=[['cream','크림','#F1E8D2'],['mustard','머스터드','#D9A93B'],['black','블랙','#141414'],['red','레드','#B8352B'],['sky','스카이','#8FB6C9']];
+const FONTS=[['serif','명조',"'Gowun Batang',serif"],['sans','고딕',"'IBM Plex Sans KR',sans-serif"],['pen','필기',"'Nanum Pen Script',cursive"]];
+const KINDS={
+  wallet:{name:'카드지갑',price:38000,size:'약 10 × 7 cm',tx:260,ty:252,maxW:230,base:30,
+    clip:'<rect x="90" y="90" width="340" height="220" rx="22"/>',
+    body:f=>`<rect x="90" y="90" width="340" height="220" rx="22" fill="${f}"/>`,
+    detail:'<path d="M90 160H430" stroke="rgba(0,0,0,.3)" stroke-width="2"/><path d="M90 162H430" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>',
+    stitch:'<rect x="104" y="104" width="312" height="192" rx="14"/>'},
+  key:{name:'키링',price:22000,size:'약 4 × 7 cm',tx:260,ty:292,maxW:104,base:24,
+    behind:'<circle cx="260" cy="140" r="48" fill="none" stroke="#C9CBC7" stroke-width="7"/>',
+    clip:'<rect x="185" y="150" width="150" height="210" rx="30"/>',
+    body:f=>`<rect x="185" y="150" width="150" height="210" rx="30" fill="${f}"/>`,
+    detail:'<circle cx="260" cy="184" r="11" fill="#2F4A3E"/>',
+    stitch:'<rect x="199" y="164" width="122" height="182" rx="20"/>'},
+  pouch:{name:'파우치',price:52000,size:'약 14 × 9 cm',tx:260,ty:250,maxW:240,base:30,
+    clip:'<rect x="100" y="130" width="320" height="190" rx="18"/>',
+    body:f=>`<rect x="100" y="130" width="320" height="190" rx="18" fill="${f}"/>`,
+    detail:'<rect x="100" y="130" width="320" height="30" rx="14" fill="rgba(0,0,0,.2)"/><path d="M116 145H404" stroke="#D2BC84" stroke-width="5" stroke-dasharray="3 3"/><circle cx="132" cy="145" r="7" fill="#D2BC84"/>',
+    stitch:'<rect x="114" y="176" width="292" height="130" rx="10"/>'}
+};
+const S={kind:'wallet',leather:'camel',thread:'cream',font:'serif',text:'결'};
+let basket=[];
+const $=id=>document.getElementById(id);
+const won=n=>n.toLocaleString('ko-KR')+'원';
+const find=(arr,id)=>arr.find(a=>a[0]===id);
+const price=()=>KINDS[S.kind].price+(S.text.trim()?3000:0);
+
+function build(){
+  $('kinds').innerHTML=Object.entries(KINDS).map(([k,v])=>`<button data-k="kind" data-v="${k}">${v.name}</button>`).join('');
+  $('leathers').innerHTML=LEATHER.map(l=>`<button class="sw" style="--c:${l[2]}" data-k="leather" data-v="${l[0]}" aria-label="${l[1]}"></button>`).join('');
+  $('threads').innerHTML=THREAD.map(l=>`<button class="sw" style="--c:${l[2]}" data-k="thread" data-v="${l[0]}" aria-label="${l[1]}"></button>`).join('');
+  $('fonts').innerHTML=FONTS.map(f=>`<button data-k="font" data-v="${f[0]}" style="font-family:${f[2]}">${f[1]}</button>`).join('');
+}
+
+function draw(){
+  const K=KINDS[S.kind],L=find(LEATHER,S.leather)[2],T=find(THREAD,S.thread)[2],F=find(FONTS,S.font)[2];
+  const t=S.text.trim().replace(/[<>&]/g,'');
+  const wl=[...t].reduce((a,c)=>a+(/[가-힣]/.test(c)?1:.62),0)||1;
+  const fs=Math.min(K.base,K.maxW/wl)*(S.font==='pen'?1.3:1);
+  const txt=t?`<g font-family="${F}" font-size="${fs}" text-anchor="middle" letter-spacing="${S.font==='sans'?1.5:0}">
+    <text x="${K.tx}" y="${K.ty+1.3}" fill="rgba(255,255,255,.32)">${t}</text>
+    <text x="${K.tx}" y="${K.ty}" fill="rgba(0,0,0,.55)">${t}</text></g>`:'';
+  $('piece').innerHTML=`<svg viewBox="0 0 520 400" role="img" aria-label="${K.name} 미리보기">
+  <defs>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .7 0 0 0 -.14"/></filter>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="11" flood-color="#000" flood-opacity=".45"/></filter>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></linearGradient>
+    <clipPath id="clip">${K.clip}</clipPath>
+  </defs>
+  ${K.behind||''}
+  <g filter="url(#sh)">${K.body(L)}</g>
+  <g clip-path="url(#clip)"><rect width="520" height="400" fill="url(#sheen)"/><rect width="520" height="400" fill="#000" filter="url(#grain)" opacity=".55"/></g>
+  ${K.detail}
+  <g fill="none" stroke="${T}" stroke-width="2.6" stroke-dasharray="7 5" stroke-linecap="round">${K.stitch}</g>
+  ${txt}</svg>`;
+  $('cap').innerHTML=`<b>${K.name}</b> ${K.size} · ${find(LEATHER,S.leather)[1]} 가죽`;
+  $('lname').textContent=find(LEATHER,S.leather)[1];
+  $('tname').textContent=find(THREAD,S.thread)[1];
+  $('price').textContent=won(price());
+  document.querySelectorAll('[data-k]').forEach(b=>b.setAttribute('aria-pressed',S[b.dataset.k]===b.dataset.v));
+}
+
+function line(i){
+  const K=KINDS[i.kind];
+  return `${K.name} · ${find(LEATHER,i.leather)[1]} 가죽 · ${find(THREAD,i.thread)[1]} 실`+(i.text.trim()?` · 각인 "${i.text.trim()}"`:'');
+}
+function drawBasket(){
+  $('empty').hidden=basket.length>0;
+  $('list').innerHTML=basket.map((b,n)=>`<li><span>${line(b)}<br>${won(b.price)}</span><button data-rm="${n}">빼기</button></li>`).join('');
+  $('tot').hidden=$('copy').hidden=!basket.length;
+  $('sum').textContent=won(basket.reduce((a,b)=>a+b.price,0));
+}
+let tt;
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-k]');
+  if(b){S[b.dataset.k]=b.dataset.v;draw();return}
+  const r=e.target.closest('[data-rm]');
+  if(r){basket.splice(+r.dataset.rm,1);drawBasket()}
+});
+$('txt').addEventListener('input',e=>{S.text=e.target.value;draw()});
+$('add').addEventListener('click',()=>{basket.push({...S,price:price()});drawBasket();toast('구성을 담았어요')});
+$('copy').addEventListener('click',async()=>{
+  const txt=basket.map((b,n)=>`${n+1}. ${line(b)} (${won(b.price)})`).join('\n')+`\n합계 ${$('sum').textContent}`;
+  try{await navigator.clipboard.writeText(txt);toast('주문 내용을 복사했어요')}catch{toast('복사하지 못했어요. 직접 선택해 복사해 주세요')}
+});
+const stage=$('stage'),piece=$('piece');
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  stage.addEventListener('mousemove',e=>{
+    const r=stage.getBoundingClientRect();
+    piece.style.setProperty('--ry',((e.clientX-r.left)/r.width-.5)*10+'deg');
+    piece.style.setProperty('--rx',(-((e.clientY-r.top)/r.height-.5))*8+'deg');
+  });
+  stage.addEventListener('mouseleave',()=>{piece.style.setProperty('--rx','0deg');piece.style.setProperty('--ry','0deg')});
+}
+build();draw();drawBasket();
+</script>
+</body>
+</html>
